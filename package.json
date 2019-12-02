@@ -1,0 +1,33 @@
+{
+  "name": "crawly",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "webpack-dev-server --mode development --open --hot",
+    "build": "webpack --mode production",
+    "server": "node server.js",
+    "all": "webpack --mode development && node server.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "core-js-compat": "^3.4.7",
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "mongodb": "^3.3.5",
+    "mongoose": "^5.7.13",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.7.4",
+    "@babel/core": "^7.7.4",
+    "@babel/preset-env": "^7.7.4",
+    "@babel/preset-react": "^7.7.4",
+    "babel-loader": "^8.0.6",
+    "html-webpack-plugin": "^3.2.0",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.9.0"
+  }
+}

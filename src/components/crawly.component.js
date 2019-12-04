@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import fetcher from '../fetcher.js'
 
 export default function Crawly({user}) {
@@ -14,8 +14,13 @@ export default function Crawly({user}) {
         })
     }
 
+    useEffect(() => {
+        fetcher(`http://localhost:5000/api/scrape/${user.twitterId}`)
+    },[user])
+
     return(
         <React.Fragment>
+            <img src={user.profileImageUrl}/>
             <h2>{`hi ${user.name}`}</h2>
             <form onSubmit={submitScrape}>
                 <label htmlFor="siteToCrawl">

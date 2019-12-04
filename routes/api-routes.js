@@ -1,8 +1,8 @@
 const router = require('express').Router()
-const { create } = require('../dbconnect/scrape-connect')
+const { create, getById } = require('../dbconnect/scrape-connect')
 
-router.post('/scrape', (req, res) => {
-    const newScrape = create(
+router.post('/scrape', async (req, res) => {
+    const newScrape = await create(
         req.body.url,
         req.user.twitterId
     )
@@ -12,6 +12,13 @@ router.post('/scrape', (req, res) => {
             newScrape
         )
     }
+})
+
+router.get('/scrape/:scrape_id', async (req, res) => {
+    const scrapes = await getById(req.params.scrape_id)
+    res.send(
+        scrapes
+    )
 })
 
 module.exports = router

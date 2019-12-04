@@ -10,8 +10,18 @@ async function create(url, twitterId){
     return newScrape
 }
 
+async function getById(id){
+    let scrapeData
+    Scrape.find({twitterId: id}).then(scrape => {
+        scrapeData = scrape
+    })
+
+    return scrapeData
+}
+
 const methods = {
-    create
+    create,
+    getById
 }
 
 module.exports = methods

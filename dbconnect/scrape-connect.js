@@ -11,12 +11,9 @@ async function create(url, twitterId){
 }
 
 async function getById(id){
-    let scrapeData
-    Scrape.find({twitterId: id}).then(scrape => {
-        scrapeData = scrape
+    return await Scrape.find({twitterId: id}).then(scrape => {
+        return scrape
     })
-
-    return scrapeData
 }
 
 const methods = {

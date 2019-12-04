@@ -1,22 +1,12 @@
 import React, {useEffect, useState} from 'react'
+import Crawly from './crawly.component.js'
+import fetcher from '../fetcher.js'
 
 export default function App(){
-    const [shouldAuthenticate, setShould] = useState(false)
     const [user, setUser] = useState(null)
-    const fetchConfig = {
-        method: "GET",
-        credentials: "include",
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Credentials": true
-        }
-    }
-
     useEffect(() => {
-        fetch('http://localhost:5000/auth/login/success', fetchConfig)
+        fetcher('http://localhost:5000/auth/login/success')
             .then(resp => {
-                console.log('resp', resp)
                 if (resp.status === 200) {
                     return resp.json()
                 } else {
@@ -24,7 +14,6 @@ export default function App(){
                 }
             })
             .then( json => {
-                console.log('json', json)
                 setUser(
                     json.user
                 )
@@ -33,13 +22,15 @@ export default function App(){
     }, [])
 
     return (
-        <div>
-            <a href='/auth/twitter'> 
-             Sign in with Twitter???
-            </a>
-            <div>
-                {user && JSON.stringify(user)}
-            </div>
-        </div>
+        <main>
+            { user
+                ? 
+                    <Crawly user={user}/>
+                : 
+                    <a href='/auth/twitter'> 
+                        Sign in with Twitter???
+                    </a>
+            }
+        </main>
     )
 }

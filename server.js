@@ -20,7 +20,7 @@ app.use(bodyParser())
 app.use(passport.initialize())
 app.use(passport.session())
 const corsOptions = {
-    origin: "http://localhost:5000",
+    origin: `http://localhost:${port}`,
     credentials: true,
     methods: "GET,POST,PATCH,PUT,DELETE,HEAD"
 }

@@ -17,7 +17,7 @@ router.get('/login/failed', (req, res) => {
 
 router.get('/logout', (req, res) => {
     req.logout()
-    res.redirect('http://localhost:5000')
+    res.redirect(`http://localhost:${process.env.PORT}`)
 })
 
 router.get('/twitter', passport.authenticate('twitter'))
@@ -25,7 +25,7 @@ router.get('/twitter', passport.authenticate('twitter'))
 router.get(
     '/twitter/redirect',
     passport.authenticate('twitter', {
-        successRedirect: 'http://localhost:5000',
+        successRedirect: `http://localhost:${process.env.PORT}`,
         failureRedirect: '/auth/login/failed'
     })
 )

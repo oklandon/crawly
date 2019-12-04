@@ -1,0 +1,38 @@
+version: '2'
+services:
+    app:
+        build: .
+        container_name: app
+        environment:
+            - NODE_ENV=development
+            - PORT=5000
+            - REDIS_URL=redis://my-cache
+        command: "sh -c 'npm install -g -s --no-progress yarn && \
+            yarn && \
+            yarn all'"
+        volumes:
+            - .:/var/www/app
+        links:
+            - redis
+        ports:
+            - "5000:5000"
+
+    worker:
+        build: .
+        container_name: worker
+        environment:
+            - NODE_ENV=development
+            - PORT=5000
+            - REDIS_URL=redis://my-cache
+        command: "sh -c 'npm i && npm run worker:dev'"
+        volumes:
+            - .:/var/www/app
+        links:
+            - redis
+
+    redis:
+        image: redis
+        container_name: redis-cache
+        expose:
+            - "6379"
+

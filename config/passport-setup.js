@@ -25,7 +25,7 @@ passport.use(
     {
       consumerKey: keys.TWITTER_CONSUMER_KEY,
       consumerSecret: keys.TWITTER_CONSUMER_SECRET,
-      callbackURL: "http://localhost:5000/auth/twitter/redirect"
+      callbackURL: `http://localhost:${process.env.PORT}/auth/twitter/redirect`
     },
     async (token, tokenSecret, profile, done) => {
       // find current user in UserModel

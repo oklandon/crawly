@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const scrapeSchema = new Schema({
   twitterId: String,
   scrapeData: String,
+  url: String
 },{
     timestamps: true
 });

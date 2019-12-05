@@ -1,4 +1,5 @@
 const Scrape = require('../models/scrape-model')
+const { scrapeQueue, URL } = require('../crawler/scrape-queue')
 
 async function create(url, twitterId){
     const newScrape = await new Scrape({
@@ -6,6 +7,8 @@ async function create(url, twitterId){
         twitterId,
         url
     }).save()
+
+    scrapeQueue[URL].add(newScrape)
 
     return newScrape
 }

@@ -24,7 +24,9 @@ services:
             - NODE_ENV=development
             - PORT=5000
             - REDIS_URL=redis://my-cache
-        command: "sh -c 'npm i && npm run worker:dev'"
+        command: "sh -c 'npm install -g -s --no-progress yarn && \
+            yarn && \
+            yarn worker'"
         volumes:
             - .:/var/www/app
         links:

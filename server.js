@@ -12,6 +12,10 @@ const port = process.env.PORT || 5000
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 
+const Arena = require('bull-arena')
+const { URL } = require('./crawler/scrape-queue')
+const url = require('url')
+
 mongoose.connect(keys.URI, () => console.log('db connected'))
 app.use(cookieSession({name: 'user_session', keys: [keys.COOKIE_KEY], maxAge: 1000000}))
 
@@ -54,6 +58,34 @@ app.use('/api', apiRoutes)
 app.get('/backend', (req, res) => {
     res.send({express: 'backend connected'})
 })
+
+// queue dashboard
+
+function getRedisConfig(redisUrl) {
+    const redisConfig = url.parse(redisUrl);
+    return {
+      host: redisConfig.hostname || 'localhost',
+      port: Number(redisConfig.port || 6379),
+      database: (redisConfig.pathname || '/0').substr(1) || '0',
+      password: redisConfig.auth ? redisConfig.auth.split(':')[1] : undefined
+    };
+}
+
+app.use('/', Arena(
+    {
+        queues: [
+            {
+                name: URL,
+                hostId: 'Worker',
+                redis: getRedisConfig(process.env.REDIS_URL || '')
+            }
+        ],
+    },
+    {
+        basePath: '/arena',
+        disableListen: true
+    }
+))
 
 app.listen(port, () => console.log('listening on port ' + port))
 // todo: authentication callback for  backend endpoints

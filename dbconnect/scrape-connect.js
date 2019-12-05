@@ -8,7 +8,11 @@ async function create(url, twitterId){
         url
     }).save()
 
-    scrapeQueue[URL].add(newScrape)
+    try {
+        scrapeQueue[URL].add(newScrape)
+    } catch (err) {
+        console.log(err)
+    }
 
     return newScrape
 }

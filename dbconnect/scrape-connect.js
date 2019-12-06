@@ -34,7 +34,8 @@ async function update(id, set){
 
 const methods = {
     create,
-    getById
+    getById,
+    update
 }
 
 module.exports = methods

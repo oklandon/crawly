@@ -23,6 +23,15 @@ async function getById(id){
     })
 }
 
+async function update(id, set){
+    return await Scrape.update(
+        {twitterId: id},
+        {
+            $set: set
+        }
+    )
+}
+
 const methods = {
     create,
     getById
